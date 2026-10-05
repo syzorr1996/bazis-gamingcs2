@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#05070d">
+<title>BÁZIS GAMING | CS2 Community</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Inter:wght@400;600;700;800&display=swap');
+
+:root {
+  --bg:#04060b; --panel:rgba(9,14,24,.78); --cyan:#00eaff;
+  --blue:#167cff; --purple:#7b4dff; --text:#f5f7ff; --muted:#8e99ad;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  min-height:100vh; overflow-x:hidden; color:var(--text); background:var(--bg);
+  font-family:Inter,sans-serif;
+}
+body::before {
+  content:""; position:fixed; inset:0; z-index:-5;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(0,234,255,.14),transparent 28%),
+    radial-gradient(circle at 85% 25%,rgba(123,77,255,.16),transparent 30%),
+    radial-gradient(circle at 50% 90%,rgba(22,124,255,.12),transparent 32%);
+}
+.grid {
+  position:fixed; inset:-25%; z-index:-4; opacity:.2; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,234,255,.13) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,234,255,.09) 1px,transparent 1px);
+  background-size:55px 55px;
+  transform:perspective(560px) rotateX(58deg) translateY(25%);
+  animation:gridMove 8s linear infinite;
+}
+@keyframes gridMove { to { background-position:0 55px,55px 0; } }
+
+.glow { position:fixed; border-radius:50%; filter:blur(90px); z-index:-3; pointer-events:none; }
+.glow.one { width:320px;height:320px;left:-130px;top:12%;background:rgba(0,234,255,.18);animation:float 8s ease-in-out infinite; }
+.glow.two { width:350px;height:350px;right:-140px;top:45%;background:rgba(123,77,255,.18);animation:float 10s ease-in-out infinite reverse; }
+@keyframes float { 50% { transform:translate(45px,35px) scale(1.12); } }
+
+nav {
+  height:72px; position:sticky; top:0; z-index:20; display:flex; align-items:center;
+  justify-content:space-between; padding:0 6%; background:rgba(4,6,11,.78);
+  backdrop-filter:blur(18px); border-bottom:1px solid rgba(0,234,255,.18);
+}
+.logo { font:800 1.22rem Orbitron,sans-serif; letter-spacing:2px; }
+.logo span { color:var(--cyan); text-shadow:0 0 18px rgba(0,234,255,.8); }
+.links { display:flex; gap:28px; }
+.links a { color:#cdd4e5; text-decoration:none; font-size:.86rem; font-weight:700; }
+.links a:hover { color:var(--cyan); }
+.menu { display:none; border:0; background:none; color:white; font-size:1.6rem; }
+
+.hero {
+  min-height:680px; display:grid; place-items:center; text-align:center;
+  padding:80px 6%;
+}
+.hero-inner { max-width:1000px; width:100%; }
+.tag {
+  display:inline-block; padding:8px 15px; border:1px solid rgba(0,234,255,.4);
+  border-radius:999px; color:var(--cyan); background:rgba(0,234,255,.05);
+  font:700 .7rem Orbitron,sans-serif; letter-spacing:2px;
+}
+h1 {
+  font:800 clamp(3.5rem,10vw,8.5rem)/.86 Orbitron,sans-serif;
+  letter-spacing:-6px; margin:26px 0;
+}
+h1 span {
+  color:transparent; -webkit-text-stroke:1px var(--cyan);
+  text-shadow:0 0 35px rgba(0,234,255,.3);
+}
+.hero p { max-width:620px; margin:auto; color:var(--muted); line-height:1.8; }
+.buttons { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:30px; }
+.btn {
+  padding:14px 22px; border-radius:8px; text-decoration:none;
+  font-weight:800; font-size:.82rem; transition:.25s;
+}
+.primary { color:#001015; background:var(--cyan); box-shadow:0 0 28px rgba(0,234,255,.28); }
+.secondary { color:white; background:rgba(255,255,255,.03); border:1px solid rgba(0,234,255,.25); }
+.btn:hover { transform:translateY(-3px); }
+
+section { max-width:1150px; margin:auto; padding:70px 6%; }
+.kicker { color:var(--cyan); font:800 .7rem Orbitron,sans-serif; letter-spacing:2px; }
+h2 { font:800 clamp(1.8rem,4vw,2.8rem) Orbitron,sans-serif; margin:8px 0 28px; }
+
+.players {
+  display:grid; grid-template-columns:repeat(2,1fr); gap:14px;
+}
+.player {
+  display:flex; align-items:center; gap:14px; min-height:62px; padding:17px 20px;
+  border:1px solid rgba(0,234,255,.14); border-radius:12px;
+  background:var(--panel); backdrop-filter:blur(12px);
+  font-weight:700; transition:.3s;
+}
+.player:hover {
+  transform:translateX(5px); border-color:rgba(0,234,255,.55);
+  box-shadow:0 0 25px rgba(0,234,255,.1);
+}
+.dot {
+  width:9px; height:9px; flex:none; border-radius:50%; background:var(--cyan);
+  box-shadow:0 0 12px var(--cyan);
+}
+
+.community {
+  display:grid; grid-template-columns:1fr 1fr; gap:20px;
+}
+.community-card {
+  display:flex; align-items:center; justify-content:space-between; gap:20px;
+  padding:28px; border:1px solid rgba(0,234,255,.16); border-radius:16px;
+  background:var(--panel); backdrop-filter:blur(12px);
+}
+.community-card h3 { font:700 1.05rem Orbitron,sans-serif; margin-bottom:8px; }
+.community-card p { color:var(--muted); font-size:.85rem; }
+.community-card a {
+  flex:none; padding:11px 15px; border-radius:8px; color:#001015;
+  background:var(--cyan); text-decoration:none; font-weight:800; font-size:.78rem;
+}
+
+footer {
+  text-align:center; padding:42px 6%; margin-top:20px;
+  border-top:1px solid rgba(0,234,255,.14); color:#687286; font-size:.78rem;
+}
+
+@media(max-width:760px) {
+  .links { display:none; } .menu { display:block; }
+  .hero { min-height:620px; padding-top:60px; }
+  .players,.community { grid-template-columns:1fr; }
+  section { padding-top:55px; padding-bottom:55px; }
+}
+@media(max-width:480px) {
+  nav { height:64px; padding:0 5%; }
+  h1 { letter-spacing:-3px; }
+  .hero { padding-left:5%; padding-right:5%; }
+  .buttons .btn { width:100%; text-align:center; }
+  .community-card { align-items:flex-start; flex-direction:column; }
+  .community-card a { width:100%; text-align:center; }
+}
+</style>
+</head>
+<body>
+<div class="grid"></div><div class="glow one"></div><div class="glow two"></div>
+
+<nav>
+  <div class="logo">BÁZIS<span>GAMING</span></div>
+  <div class="links">
+    <a href="#home">FŐOLDAL</a>
+    <a href="#players">JÁTÉKOSOK</a>
+    <a href="#community">KÖZÖSSÉG</a>
+  </div>
+  <button class="menu" aria-label="Menü">☰</button>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-inner">
+    <div class="tag">COUNTER-STRIKE 2 • COMMUNITY</div>
+    <h1>BÁZIS<br><span>GAMING</span></h1>
+    <p>A BÁZIS GAMING CS2 közösség hivatalos oldala. Csatlakozz hozzánk Discordon és Steam-en!</p>
+    <div class="buttons">
+      <a class="btn primary" href="https://discord.gg/t4twJQAfe" target="_blank" rel="noopener">DISCORD</a>
+      <a class="btn secondary" href="https://steamcommunity.com/groups/bazisgaming" target="_blank" rel="noopener">STEAM CSOPORT</a>
+    </div>
+  </div>
+</header>
+
+<section id="players">
+  <div class="kicker">BÁZIS GAMING</div>
+  <h2>Játékosok</h2>
+  <div class="players">
+    <div class="player"><span class="dot"></span><span>SYZOR</span></div>
+<div class="player"><span class="dot"></span><span>Tama</span></div>
+<div class="player"><span class="dot"></span><span>Taki</span></div>
+<div class="player"><span class="dot"></span><span>ExtermiN97</span></div>
+<div class="player"><span class="dot"></span><span>Itzak Rosenberg</span></div>
+<div class="player"><span class="dot"></span><span>darkhunter22210</span></div>
+<div class="player"><span class="dot"></span><span>Nacsesz</span></div>
+<div class="player"><span class="dot"></span><span>Erik</span></div>
+<div class="player"><span class="dot"></span><span>bazsiee</span></div>
+<div class="player"><span class="dot"></span><span>Old Sutahand - VarázsLow</span></div>
+  </div>
+</section>
+
+<section id="community">
+  <div class="kicker">JOIN THE COMMUNITY</div>
+  <h2>Közösség</h2>
+  <div class="community">
+    <div class="community-card">
+      <div><h3>DISCORD</h3><p>Csatlakozz a BÁZIS GAMING Discord közösséghez.</p></div>
+      <a href="https://discord.gg/t4twJQAfe" target="_blank" rel="noopener">CSATLAKOZÁS</a>
+    </div>
+    <div class="community-card">
+      <div><h3>STEAM CSOPORT</h3><p>Találkozz velünk a Steam közösségben.</p></div>
+      <a href="https://steamcommunity.com/groups/bazisgaming" target="_blank" rel="noopener">MEGNYITÁS</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 BÁZIS GAMING • CS2 COMMUNITY</footer>
+</body>
+</html>
